@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Волейбол в моей жизни</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f0f8ff;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        header {
+            background: linear-gradient(135deg, #1e3c72, #2a5298);
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+        }
+
+        nav {
+            background-color: #2a5298;
+            padding: 1rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            transition: color 0.3s;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+        }
+
+        nav a:hover, nav a.active {
+            background-color: rgba(255, 255, 255, 0.2);
+            color: #ffd700;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+        }
+
+        .page {
+            display: none;
+            background: white;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            animation: fadeIn 0.5s ease;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        h2 {
+            color: #1e3c72;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid #ffd700;
+        }
+
+        .upload-section {
+            background: #e6f2ff;
+            border: 2px dashed #2a5298;
+            padding: 2rem;
+            text-align: center;
+            border-radius: 10px;
+            margin-bottom: 2rem;
+        }
+
+        .upload-btn {
+            background: #2a5298;
+            color: white;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background 0.3s;
+            margin-top: 1rem;
+        }
+
+        .upload-btn:hover {
+            background: #1e3c72;
+        }
+
+        #file-input {
+            display: none;
+        }
+
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1rem;
+        }
+
+        .gallery-item {
+            position: relative;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+            transition: transform 0.3s;
+        }
+
+        .gallery-item:hover {
+            transform: translateY(-5px);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .delete-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: rgba(255, 0, 0, 0.7);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            cursor: pointer;
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .gallery-item:hover .delete-btn {
+            opacity: 1;
+        }
+
+Саня, [04.11.2025 12:28]
+.empty-gallery {
+            text-align: center;
+            padding: 2rem;
+            color: #666;
+            font-style: italic;
+        }
+
+        footer {
+            background: #1e3c72;
+            color: white;
+            text-align: center;
+            padding: 2rem;
+            margin-top: 2rem;
+        }
+
+        @media (max-width: 768px) {
+            nav ul {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .container {
+                padding: 0 1rem;
+            }
+            
+            .gallery {
+                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Волейбол в моей жизни</h1>
+        <p>Сайт о моей любви к волейболу и его роли в моей жизни</p>
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="#" class="nav-link active" data-page="home">Главная</a></li>
+            <li><a href="#" class="nav-link" data-page="training">Тренировки</a></li>
+            <li><a href="#" class="nav-link" data-page="matches">Матчи</a></li>
+            <li><a href="#" class="nav-link" data-page="team">Команда</a></li>
+        </ul>
+    </nav>
+
+    <div class="container">
+        <!-- Главная страница -->
+        <div id="home" class="page active">
+            <h2>О волейболе в моей жизни</h2>
+            <p>Волейбол — это не просто спорт для меня. Это страсть, которая учит работать в команде, 
+            развивает реакцию и приносит невероятное удовольствие от каждой сыгранной партии. 
+            Каждый матч — это новые эмоции, новые друзья и новые достижения.</p>
+            
+            <div class="upload-section">
+                <h3>Добавьте общие фотографии</h3>
+                <p>Загрузите фотографии, связанные с волейболом в вашей жизни</p>
+                <input type="file" id="file-input-home" accept="image/*" multiple>
+                <button class="upload-btn" id="upload-trigger-home">Выбрать фотографии</button>
+            </div>
+            
+            <div class="gallery" id="photo-gallery-home">
+                <div class="empty-gallery" id="empty-message-home">
+                    Пока нет загруженных фотографий. Добавьте первые изображения!
+                </div>
+            </div>
+        </div>
+
+        <!-- Страница тренировок -->
+        <div id="training" class="page">
+            <h2>Тренировки</h2>
+            <p>Регулярные тренировки — залог успеха в волейболе. Здесь я делюсь фотографиями 
+            с тренировочного процесса, упражнениями и моментами совершенствования техники.</p>
+            
+            <div class="upload-section">
+                <h3>Добавьте фотографии с тренировок</h3>
+                <p>Загрузите фотографии тренировок, упражнений и подготовки</p>
+                <input type="file" id="file-input-training" accept="image/*" multiple>
+                <button class="upload-btn" id="upload-trigger-training">Выбрать фотографии</button>
+            </div>
+            
+            <div class="gallery" id="photo-gallery-training">
+                <div class="empty-gallery" id="empty-message-training">
+                    Пока нет загруженных фотографий. Добавьте первые изображения!
+                </div>
+            </div>
+        </div>
+
+        <!-- Страница матчей -->
+        <div id="matches" class="page">
+            <h2>Матчи и турниры</h2>
+            <p>Волейбольные матчи — это всегда адреналин и эмоции. На этой странице собраны 
+            фотографии с различных соревнований, турниров и товарищеских встреч.</p>
+            
+            <div class="upload-section">
+                <h3>Добавьте фотографии с матчей</h3>
+                <p>Загрузите фотографии игр, турниров и соревнований</p>
+                <input type="file" id="file-input-matches" accept="image/*" multiple>
+
+Саня, [04.11.2025 12:28]
+<button class="upload-btn" id="upload-trigger-matches">Выбрать фотографии</button>
+            </div>
+            
+            <div class="gallery" id="photo-gallery-matches">
+                <div class="empty-gallery" id="empty-message-matches">
+                    Пока нет загруженных фотографий. Добавьте первые изображения!
+                </div>
+            </div>
+        </div>
+
+        <!-- Страница команды -->
+        <div id="team" class="page">
+            <h2>Наша команда</h2>
+            <p>Волейбол — это командная игра, и без слаженной работы всех игроков невозможен успех. 
+            Здесь собраны фотографии нашей команды, совместных мероприятий и моментов товарищества.</p>
+            
+            <div class="upload-section">
+                <h3>Добавьте фотографии команды</h3>
+                <p>Загрузите фотографии команды, совместных мероприятий и встреч</p>
+                <input type="file" id="file-input-team" accept="image/*" multiple>
+                <button class="upload-btn" id="upload-trigger-team">Выбрать фотографии</button>
+            </div>
+            
+            <div class="gallery" id="photo-gallery-team">
+                <div class="empty-gallery" id="empty-message-team">
+                    Пока нет загруженных фотографий. Добавьте первые изображения!
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>© 2023 Волейбол в моей жизни. Все права защищены.</p>
+        <p>Контакты: volleyball.mylife@example.com</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Навигация между страницами
+            const navLinks = document.querySelectorAll('.nav-link');
+            const pages = document.querySelectorAll('.page');
+            
+            navLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    // Убираем активный класс со всех ссылок и страниц
+                    navLinks.forEach(l => l.classList.remove('active'));
+                    pages.forEach(page => page.classList.remove('active'));
+                    
+                    // Добавляем активный класс текущей ссылке
+                    this.classList.add('active');
+                    
+                    // Показываем выбранную страницу
+                    const pageId = this.getAttribute('data-page');
+                    document.getElementById(pageId).classList.add('active');
+                });
+            });
+            
+            // Инициализация галерей для каждой страницы
+            const galleries = [
+                { id: 'home', inputId: 'file-input-home', triggerId: 'upload-trigger-home', galleryId: 'photo-gallery-home', emptyId: 'empty-message-home' },
+                { id: 'training', inputId: 'file-input-training', triggerId: 'upload-trigger-training', galleryId: 'photo-gallery-training', emptyId: 'empty-message-training' },
+                { id: 'matches', inputId: 'file-input-matches', triggerId: 'upload-trigger-matches', galleryId: 'photo-gallery-matches', emptyId: 'empty-message-matches' },
+                { id: 'team', inputId: 'file-input-team', triggerId: 'upload-trigger-team', galleryId: 'photo-gallery-team', emptyId: 'empty-message-team' }
+            ];
+            
+            galleries.forEach(gallery => {
+                initGallery(gallery);
+            });
+            
+            function initGallery(galleryConfig) {
+                const fileInput = document.getElementById(galleryConfig.inputId);
+                const uploadTrigger = document.getElementById(galleryConfig.triggerId);
+                const photoGallery = document.getElementById(galleryConfig.galleryId);
+                const emptyMessage = document.getElementById(galleryConfig.emptyId);
+
+Саня, [04.11.2025 12:28]
+// Загрузка сохраненных фотографий из localStorage при загрузке страницы
+                loadSavedPhotos(galleryConfig.id, photoGallery, emptyMessage);
+                
+                // Обработчик клика на кнопку загрузки
+                uploadTrigger.addEventListener('click', function() {
+                    fileInput.click();
+                });
+                
+                // Обработчик выбора файлов
+                fileInput.addEventListener('change', function(e) {
+                    const files = e.target.files;
+                    if (files.length > 0) {
+                        // Скрываем сообщение о пустой галерее
+                        emptyMessage.style.display = 'none';
+                        
+                        // Обрабатываем каждый выбранный файл
+                        for (let i = 0; i < files.length; i++) {
+                            const file = files[i];
+                            if (file.type.startsWith('image/')) {
+                                addPhotoToGallery(file, galleryConfig.id, photoGallery, emptyMessage);
+                            }
+                        }
+                        
+                        // Сбрасываем значение input, чтобы можно было загрузить те же файлы снова
+                        fileInput.value = '';
+                    }
+                });
+            }
+            
+            // Функция добавления фото в галерею
+            function addPhotoToGallery(file, galleryId, photoGallery, emptyMessage) {
+                const reader = new FileReader();
+                
+                reader.onload = function(e) {
+                    // Создаем элемент галереи
+                    const galleryItem = document.createElement('div');
+                    galleryItem.className = 'gallery-item';
+                    
+                    // Создаем изображение
+                    const img = document.createElement('img');
+                    img.src = e.target.result;
+                    img.alt = 'Волейбольное фото';
+                    
+                    // Создаем кнопку удаления
+                    const deleteBtn = document.createElement('button');
+                    deleteBtn.className = 'delete-btn';
+                    deleteBtn.innerHTML = '×';
+                    deleteBtn.addEventListener('click', function() {
+                        galleryItem.remove();
+                        removePhotoFromStorage(galleryId, e.target.result);
+                        checkIfGalleryEmpty(photoGallery, emptyMessage);
+                    });
+                    
+                    // Добавляем элементы в галерею
+                    galleryItem.appendChild(img);
+                    galleryItem.appendChild(deleteBtn);
+                    photoGallery.appendChild(galleryItem);
+                    
+                    // Сохраняем фото в localStorage
+                    savePhotoToStorage(galleryId, e.target.result);
+                };
+                
+                reader.readAsDataURL(file);
+            }
+            
+            // Функция сохранения фото в localStorage
+            function savePhotoToStorage(galleryId, photoData) {
+                let savedPhotos = JSON.parse(localStorage.getItem(volleyballPhotos_${galleryId})) || [];
+                savedPhotos.push(photoData);
+                localStorage.setItem(volleyballPhotos_${galleryId}, JSON.stringify(savedPhotos));
+            }
+            
+            // Функция удаления фото из localStorage
+            function removePhotoFromStorage(galleryId, photoData) {
+                let savedPhotos = JSON.parse(localStorage.getItem(volleyballPhotos_${galleryId})) || [];
+                const index = savedPhotos.indexOf(photoData);
+                if (index > -1) {
+                    savedPhotos.splice(index, 1);
+
+Саня, [04.11.2025 12:28]
+localStorage.setItem(volleyballPhotos_${galleryId}, JSON.stringify(savedPhotos));
+                }
+            }
+            
+            // Функция загрузки сохраненных фотографий
+            function loadSavedPhotos(galleryId, photoGallery, emptyMessage) {
+                const savedPhotos = JSON.parse(localStorage.getItem(volleyballPhotos_${galleryId})) || [];
+                
+                if (savedPhotos.length > 0) {
+                    emptyMessage.style.display = 'none';
+                    
+                    savedPhotos.forEach(photoData => {
+                        const galleryItem = document.createElement('div');
+                        galleryItem.className = 'gallery-item';
+                        
+                        const img = document.createElement('img');
+                        img.src = photoData;
+                        img.alt = 'Волейбольное фото';
+                        
+                        const deleteBtn = document.createElement('button');
+                        deleteBtn.className = 'delete-btn';
+                        deleteBtn.innerHTML = '×';
+                        deleteBtn.addEventListener('click', function() {
+                            galleryItem.remove();
+                            removePhotoFromStorage(galleryId, photoData);
+                            checkIfGalleryEmpty(photoGallery, emptyMessage);
+                        });
+                        
+                        galleryItem.appendChild(img);
+                        galleryItem.appendChild(deleteBtn);
+                        photoGallery.appendChild(galleryItem);
+                    });
+                }
+            }
+            
+            // Функция проверки, пуста ли галерея
+            function checkIfGalleryEmpty(photoGallery, emptyMessage) {
+                if (photoGallery.children.length === 1) { // только сообщение о пустой галерее
+                    emptyMessage.style.display = 'block';
+                }
+            }
+        });
+    </script>
+</body>
+</html>
